@@ -1,3 +1,4 @@
+cat > backend-deployment.yaml << 'EOF'
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,10 +14,12 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+        - name: ghcr-creds
       containers:
         - name: backend
           image: ghcr.io/madam31-rrc/module6-part3-madam31-rrc/backend:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 5090
               name: http
@@ -47,3 +50,4 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
+EOF
